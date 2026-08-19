@@ -1216,8 +1216,10 @@ public partial class Main
                                 ImGui.SetWindowFontScale(scale);
                                 var newTextSize = ImGui.CalcTextSize(text);
                                 var textPosition = box.Center.ToVector2Num() - newTextSize / 2;
-                                var rectPosition = new Vector2(textPosition.X, box.Top + 1);
-                                drawList.AddRectFilled(rectPosition, rectPosition + new Vector2(newTextSize.X, box.Height - 2), backgroundColor.ToImgui());
+                                var (backgroundLeft, backgroundRight) = Settings.UniqueIdentificationSettings.BackgroundCoversWholeLabel
+                                    ? (box.Left + 1, box.Right - 1)
+                                    : (textPosition.X, textPosition.X + newTextSize.X);
+                                drawList.AddRectFilled(new Vector2(backgroundLeft, box.Top + 1), new Vector2(backgroundRight, box.Bottom - 1), backgroundColor.ToImgui());
                                 drawList.AddText(textPosition, textColor.ToImgui(), text);
                                 ImGui.SetWindowFontScale(1);
                             }
