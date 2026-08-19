@@ -1123,6 +1123,7 @@ public partial class Main
     private void ProcessItemsOnGround()
     {
         if (!Settings.GroundItemSettings.PriceItemsOnGround && !Settings.UniqueIdentificationSettings.ShowRealUniqueNameOnGround && !Settings.GroundItemSettings.PriceHeistRewards) return;
+        if (GameController.IngameState.IngameUi.FullscreenPanels.Any(x => x.IsVisible)) return;
         //this window allows us to change the size of the text we draw to the background list
         //yeah, it's weird
         ImGui.Begin("lmao",
